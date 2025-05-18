@@ -1,0 +1,111 @@
+.dashboard-row-container {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  width: 100%;
+  min-height: 90vh;
+  justify-content: space-between;
+}
+
+.dashboard-row-item {
+  flex: 1 1 0;
+  min-width: 220px;
+  max-width: 360px;
+  display: flex;
+}
+
+.dashboard-card {
+  border-radius: 24px !important;
+  box-shadow: 0 6px 32px #eaf6fb77;
+  padding-bottom: 8px;
+  width: 100%;
+}
+
+.patient-list .ant-list-item {
+  padding: 8px 0;
+}
+
+.blood-formula-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.blood-formula-item {
+  background: #f0f9ff;
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  box-shadow: 0 2px 8px #eaf6fb33;
+}
+
+.neutrophils {
+  color: #1890ff;
+}
+
+.lymphocytes {
+  color: #52c41a;
+}
+
+.monocytes {
+  color: #faad14;
+}
+
+.basophils {
+  color: #722ed1;
+}
+
+.consultation-info {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.body-temp-gauge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+}
+
+.temp-value {
+  font-size: 36px;
+  color: #fa541c;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.temp-range {
+  color: #888;
+  font-size: 15px;
+  margin-top: 8px;
+}
+
+.dashboard-card.calendar {
+  min-width: 180px;
+  max-width: 260px;
+  width: 100%;
+}
+
+@media (max-width: 1200px) {
+  .dashboard-row-container {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .dashboard-row-item {
+    max-width: 100%;
+  }
+}
+
+body,
+html,
+#root {
+  min-height: 100vh;
+  background: linear-gradient(120deg, #f6fbfd 60%, #eaf6fb 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+}

@@ -1,0 +1,33 @@
+.userinfo-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding-top: 32px;
+}
+
+.userinfo-card {
+  width: 400px;
+  min-width: 280px;
+  border-radius: 20px !important;
+  box-shadow: 0 2px 8px #eaf6fb44;
+}
+
+.userinfo-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.userinfo-name {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .userinfo-card {
+    width: 100%;
+    min-width: 0;
+  }
+}

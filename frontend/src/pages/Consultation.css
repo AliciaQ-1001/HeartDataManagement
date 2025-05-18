@@ -1,0 +1,25 @@
+.consultation-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding-top: 32px;
+}
+
+.consultation-card {
+  width: 480px;
+  min-width: 280px;
+  border-radius: 20px !important;
+  box-shadow: 0 2px 8px #eaf6fb44;
+}
+
+.consultation-input {
+  margin-top: 18px;
+}
+
+@media (max-width: 700px) {
+  .consultation-card {
+    width: 100%;
+    min-width: 0;
+  }
+}

@@ -1,0 +1,30 @@
+.heartdata-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.heartdata-card {
+  flex: 1 1 320px;
+  min-width: 320px;
+  max-width: 48%;
+}
+
+.echarts-placeholder {
+  height: 220px;
+  background: #f0f9ff;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  font-size: 18px;
+}
+
+@media (max-width: 900px) {
+  .heartdata-card {
+    max-width: 100%;
+  }
+}

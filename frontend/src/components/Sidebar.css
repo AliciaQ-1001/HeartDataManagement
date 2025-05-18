@@ -1,0 +1,48 @@
+.sidebar {
+  width: 220px;
+  background: linear-gradient(135deg, #eaf6fb 80%, #f6fbfd 100%);
+  min-height: 100vh;
+  border-radius: 24px;
+  padding: 32px 0 0 0;
+  box-shadow: 0 4px 24px #eaf6fb55;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.2s;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 900;
+  color: #1890ff;
+  margin-bottom: 40px;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, #1890ff 60%, #52c1fa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.ant-menu {
+  background: transparent;
+  border: none;
+  width: 100%;
+}
+
+.ant-menu-item {
+  border-radius: 12px !important;
+  margin: 10px 18px;
+  font-size: 17px;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+}
+
+.ant-menu-item-selected {
+  background: #e6f7ff !important;
+  color: #1890ff !important;
+  font-weight: 700;
+}
+
+.ant-menu-item:hover {
+  background: #f0f9ff !important;
+  color: #1890ff !important;
+}

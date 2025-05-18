@@ -1,0 +1,67 @@
+.topbar {
+  width: 100%;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px #eaf6fb55;
+  padding: 0 40px;
+  margin-bottom: 24px;
+  transition: box-shadow 0.2s;
+}
+
+.greeting {
+  font-size: 22px;
+  color: #222;
+  font-weight: 500;
+}
+
+.greeting b {
+  color: #1890ff;
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.search-input {
+  width: 220px;
+  border-radius: 8px;
+  border: 1px solid #eaf6fb;
+  background: #f6fbfd;
+  transition: border 0.2s;
+}
+
+.search-input:focus-within {
+  border: 1.5px solid #1890ff;
+  background: #fff;
+}
+
+.topbar-icon {
+  font-size: 24px;
+  color: #1890ff;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.topbar-icon:hover {
+  transform: scale(1.15);
+  box-shadow: 0 2px 8px #eaf6fb88;
+}
+
+.ant-avatar {
+  box-shadow: 0 2px 8px #eaf6fb55;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.ant-avatar:hover {
+  box-shadow: 0 4px 16px #1890ff33;
+  transform: scale(1.08);
+}
