@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Topbar from './components/Topbar';
 import Dashboard from './pages/Dashboard';
@@ -8,13 +8,24 @@ import RespiratoryData from './pages/RespiratoryData';
 import SleepActivity from './pages/SleepActivity';
 import UserInfo from './pages/UserInfo';
 import Consultation from './pages/Consultation';
+import Login from './pages/Login';
 import 'antd/dist/reset.css';
 import './App.css';
 
-const AppContent: React.FC = () => {
+const isAuthenticated = () => !!localStorage.getItem('token');
+
+const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  if (!isAuthenticated()) {
+    return <Navigate to="/login" replace />;
+  }
+  return <>{children}</>;
+};
+
+const MainLayout: React.FC = () => {
   const [consultType, setConsultType] = useState('doctor');
   const location = useLocation();
   const isConsultation = location.pathname === '/consultation';
+
   return (
     <div className="app-root">
       <Sidebar />
@@ -35,7 +46,14 @@ const AppContent: React.FC = () => {
 
 const App: React.FC = () => (
   <HashRouter>
-    <AppContent />
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/*" element={
+        <ProtectedRoute>
+          <MainLayout />
+        </ProtectedRoute>
+      } />
+    </Routes>
   </HashRouter>
 );
 

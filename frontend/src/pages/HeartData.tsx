@@ -1,25 +1,86 @@
-import React, { useMemo } from 'react';
-import { Card } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Card, message } from 'antd';
 import ReactECharts from 'echarts-for-react';
+import { fetchHeartData } from '../api/utils';
 import './HeartData.css';
 
-// 生成模拟数据
-const genData = (min: number, max: number) => Array.from({ length: 24 }, () => min + Math.round(Math.random() * (max - min)));
+interface HeartData {
+  heartId: number;
+  heartHeartRate: number;
+  heartHrv: number;
+  heartSv: number;
+  heartCo: number;
+  heartPtt: number;
+  heartTimestamp: string;
+  userId: number;
+}
 
 const HeartData: React.FC = () => {
-  // 模拟数据，后期可替换为API数据
-  const heartRate = useMemo(() => genData(60, 100), []);
-  const hrv = useMemo(() => genData(30, 80), []);
-  const sv = useMemo(() => genData(50, 90), []);
-  const co = useMemo(() => genData(3, 8), []);
-  const ptt = useMemo(() => genData(100, 200), []);
+  const [heartData, setHeartData] = useState<HeartData[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // 生成24小时模拟数据
+  const generateMockData = (): HeartData[] => {
+    const baseTime = new Date();
+    baseTime.setMinutes(0, 0, 0);
+    return Array.from({ length: 24 }, (_, i) => {
+      const d = new Date(baseTime.getTime());
+      d.setHours(i);
+      return {
+        heartId: i + 1,
+        userId: 1,
+        heartHeartRate: 60 + Math.round(Math.random() * 30), // 60-90
+        heartHrv: 40 + Math.round(Math.random() * 30), // 40-70
+        heartSv: 50 + Math.round(Math.random() * 30), // 50-80
+        heartCo: 4 + Math.round(Math.random() * 40) / 10, // 4.0-8.0
+        heartPtt: 100 + Math.round(Math.random() * 80), // 100-180
+        heartTimestamp: d.toISOString(),
+      };
+    });
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userId = Number(localStorage.getItem('userId'));
+        if (!userId) {
+          message.error('请先登录');
+          setHeartData(generateMockData());
+          setLoading(false);
+          return;
+        }
+        const response = await fetchHeartData(userId);
+        if (response.code === 20000 && response.data && response.data.length > 1) {
+          setHeartData(response.data);
+        } else {
+          message.warning('使用模拟心脏数据');
+          setHeartData(generateMockData());
+        }
+      } catch (error) {
+        message.warning('获取数据失败，使用模拟心脏数据');
+        setHeartData(generateMockData());
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // 处理数据
   const hours = Array.from({ length: 24 }, (_, i) => `${i}:00`);
+  const heartRate = heartData.map(d => d.heartHeartRate);
+  const hrv = heartData.map(d => d.heartHrv);
+  const sv = heartData.map(d => d.heartSv);
+  const co = heartData.map(d => d.heartCo);
+  const ptt = heartData.map(d => d.heartPtt);
+
   const mainColor = '#52c1fa';
   const areaColor = 'rgba(82,193,250,0.15)';
 
   return (
     <div className="heartdata-container">
-      <Card title="心率趋势" className="heartdata-card">
+      <Card title="心率趋势" className="heartdata-card" loading={loading}>
         <ReactECharts option={{
           xAxis: { type: 'category', data: hours },
           yAxis: { type: 'value', min: 40, max: 120 },
@@ -27,7 +88,7 @@ const HeartData: React.FC = () => {
           tooltip: { trigger: 'axis' },
         }} style={{ height: 220 }} />
       </Card>
-      <Card title="心率变异性 (HRV)" className="heartdata-card">
+      <Card title="心率变异性 (HRV)" className="heartdata-card" loading={loading}>
         <ReactECharts option={{
           xAxis: { type: 'category', data: hours },
           yAxis: { type: 'value', min: 20, max: 100 },
@@ -35,7 +96,7 @@ const HeartData: React.FC = () => {
           tooltip: { trigger: 'axis' },
         }} style={{ height: 220 }} />
       </Card>
-      <Card title="心搏输出量 (SV)" className="heartdata-card">
+      <Card title="心搏输出量 (SV)" className="heartdata-card" loading={loading}>
         <ReactECharts option={{
           xAxis: { type: 'category', data: hours },
           yAxis: { type: 'value', min: 40, max: 100 },
@@ -43,7 +104,7 @@ const HeartData: React.FC = () => {
           tooltip: { trigger: 'axis' },
         }} style={{ height: 220 }} />
       </Card>
-      <Card title="心输出量 (CO)" className="heartdata-card">
+      <Card title="心输出量 (CO)" className="heartdata-card" loading={loading}>
         <ReactECharts option={{
           xAxis: { type: 'category', data: hours },
           yAxis: { type: 'value', min: 2, max: 10 },
@@ -51,7 +112,7 @@ const HeartData: React.FC = () => {
           tooltip: { trigger: 'axis' },
         }} style={{ height: 220 }} />
       </Card>
-      <Card title="脉搏波传导时间 (PTT)" className="heartdata-card">
+      <Card title="脉搏波传导时间 (PTT)" className="heartdata-card" loading={loading}>
         <ReactECharts option={{
           xAxis: { type: 'category', data: hours },
           yAxis: { type: 'value', min: 80, max: 220 },

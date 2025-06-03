@@ -1,15 +1,14 @@
 html,
 body,
 #root {
-  min-height: 100vh;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   margin: 0;
   padding: 0;
   font-size: 18px;
   font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
-  background: linear-gradient(120deg, #f6fbfd 60%, #eaf6fb 100%);
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: #f6fbfd;
+  overflow: hidden;
 }
 
 body {
@@ -66,17 +65,24 @@ body {
 
 .app-root {
   display: flex;
-  min-height: 100vh;
-  background: transparent;
-  padding: 24px;
+  width: 100vw;
+  height: 100vh;
+  background: #f6fbfd;
   box-sizing: border-box;
+  overflow: hidden;
+  padding: 0;
 }
 
 .main-content {
   flex: 1;
-  margin-left: 24px;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: #f6fbfd;
 }
 
 .app-root,
@@ -88,6 +94,25 @@ body {
   font-size: 18px;
 }
 
+/* 去除Antd卡片、表格等圆角和阴影 */
+.ant-card,
+.ant-card-bordered,
+.ant-table,
+.ant-descriptions {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* 卡片内容区无多余间距 */
+.card,
+.dashboard-card {
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* 响应式字体 */
 @media (max-width: 900px) {
 
   html,

@@ -9,8 +9,8 @@ const columns = [
   { title: '持续时间', dataIndex: 'duration', key: 'duration' },
 ];
 const data = [
-  { key: 1, time: '2023-05-01 02:10', type: '呼吸暂停', duration: '15s' },
-  { key: 2, time: '2023-05-01 03:22', type: '呼吸暂停', duration: '12s' },
+  { key: 1, time: '2025-05-28 02:10', type: '呼吸暂停', duration: '15s' },
+  { key: 2, time: '2025-05-29 03:22', type: '呼吸暂停', duration: '12s' },
 ];
 
 const genBreathData = () => Array.from({ length: 24 }, () => 12 + Math.round(Math.random() * 8));

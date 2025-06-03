@@ -31,9 +31,10 @@
 .ant-menu-item {
   border-radius: 12px !important;
   margin: 10px 18px;
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 500;
   transition: background 0.2s, color 0.2s;
+  padding-left: 60px !important;
 }
 
 .ant-menu-item-selected {

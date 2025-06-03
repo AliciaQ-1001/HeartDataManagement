@@ -1,24 +1,120 @@
-.dashboard-row-container {
+.dashboard-container {
+  padding: 24px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f7ff 0%, #e6f7ff 100%);
+}
+
+.dashboard-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  width: 100%;
+  padding: 16px;
+  align-items: start;
+}
+
+.dashboard-left-col {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dashboard-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dashboard-bottom-row {
+  grid-column: 1 / -1;
+}
+
+.blood-formula-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.blood-formula-item {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.blood-formula-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.formula-value {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.formula-label {
+  font-size: 14px;
+  color: #666;
+}
+
+.neutrophils .formula-value {
+  color: #1890ff;
+}
+
+.lymphocytes .formula-value {
+  color: #52c41a;
+}
+
+.monocytes .formula-value {
+  color: #faad14;
+}
+
+.basophils .formula-value {
+  color: #722ed1;
+}
+
+.dashboard-row-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   gap: 32px;
   width: 100%;
-  min-height: 90vh;
-  justify-content: space-between;
+  justify-items: stretch;
 }
 
 .dashboard-row-item {
-  flex: 1 1 0;
   min-width: 220px;
-  max-width: 360px;
-  display: flex;
+  max-width: 100%;
 }
 
 .dashboard-card {
-  border-radius: 24px !important;
-  box-shadow: 0 6px 32px #eaf6fb77;
-  padding-bottom: 8px;
-  width: 100%;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  height: 100%;
+  border: none;
+}
+
+.dashboard-card:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.card-title {
+  /* display: flex; */
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.card-title .anticon {
+  font-size: 18px;
+  color: #1890ff;
 }
 
 .patient-list .ant-list-item {
@@ -27,34 +123,9 @@
 
 .blood-formula-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-.blood-formula-item {
-  background: #f0f9ff;
-  border-radius: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
   padding: 16px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 18px;
-  box-shadow: 0 2px 8px #eaf6fb33;
-}
-
-.neutrophils {
-  color: #1890ff;
-}
-
-.lymphocytes {
-  color: #52c41a;
-}
-
-.monocytes {
-  color: #faad14;
-}
-
-.basophils {
-  color: #722ed1;
 }
 
 .consultation-info {
@@ -68,7 +139,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 120px;
+  height: 100px;
 }
 
 .temp-value {
@@ -90,14 +161,152 @@
   width: 100%;
 }
 
-@media (max-width: 1200px) {
-  .dashboard-row-container {
-    flex-direction: column;
-    gap: 18px;
+/* 体温卡片样式 */
+.temperature-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+}
+
+.temperature-content {
+  padding: 16px;
+  text-align: center;
+}
+
+.temperature-gauge {
+  margin-bottom: 16px;
+}
+
+.temperature-value {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.temperature-status {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.temperature-range {
+  color: #666;
+  font-size: 14px;
+}
+
+/* 血液分析卡片样式 */
+.blood-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+}
+
+.blood-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 0;
+}
+
+.hematocrit-value {
+  text-align: center;
+}
+
+.hematocrit-value .value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1890ff;
+}
+
+.hematocrit-value .label {
+  font-size: 14px;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* 血液组成分析卡片样式 */
+.blood-formula-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+}
+
+/* 日历卡片样式 */
+.calendar-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+}
+
+.calendar-card .ant-picker-calendar {
+  border: none;
+}
+
+.calendar-card .ant-picker-panel {
+  border: none;
+}
+
+.calendar-card .ant-picker-date-panel .ant-picker-body {
+  padding: 8px;
+}
+
+.calendar-card .ant-picker-cell {
+  padding: 4px;
+}
+
+.calendar-card .ant-picker-cell-in-view {
+  border-radius: 8px;
+}
+
+.calendar-card .ant-picker-cell-selected .ant-picker-cell-inner {
+  background: #1890ff;
+  border-radius: 8px;
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 16px;
   }
 
-  .dashboard-row-item {
-    max-width: 100%;
+  .dashboard-grid-container {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 12px;
+  }
+
+  .dashboard-card {
+    padding: 12px;
+  }
+
+  .blood-formula-row {
+    grid-template-columns: 1fr;
+  }
+
+  .temp-value {
+    font-size: 36px;
+  }
+
+  .temp-range {
+    font-size: 14px;
+  }
+
+  .blood-formula-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .formula-value {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .dashboard-grid-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .blood-formula-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1201px) {
+  .dashboard-grid-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
   }
 }
 

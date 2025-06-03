@@ -9,8 +9,8 @@ const columns = [
   { title: '持续时间', dataIndex: 'duration', key: 'duration' },
 ];
 const data = [
-  { key: 1, time: '2023-05-01 01:10', type: '翻身', duration: '10s' },
-  { key: 2, time: '2023-05-01 04:22', type: '抬手', duration: '8s' },
+  { key: 1, time: '2025-05-30 01:10', type: '翻身', duration: '10s' },
+  { key: 2, time: '2025-05-30 04:22', type: '抬手', duration: '8s' },
 ];
 
 const genSleepStage = () => [
