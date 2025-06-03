@@ -3,42 +3,199 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #1890ff 0%, #722ed1 100%);
+  background: linear-gradient(135deg, #3a7bd5 0%, #4F4DFF 50%, #3C51B3 100%);
+  background-size: 200% 200%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.login-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 20px;
+  max-width: 90%;
+}
+
+.login-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.logo-icon {
+  font-size: 48px;
+  color: #fff;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.6));
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.login-title {
+  color: #fff !important;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  margin: 0 !important;
+  letter-spacing: 1px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.login-subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 8px;
+  font-size: 16px;
+  text-align: center;
 }
 
 .login-card {
   width: 100%;
-  max-width: 400px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 420px;
+  border-radius: 24px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
 
 .login-card .ant-card-body {
-  padding: 24px 32px;
+  padding: 30px 35px;
 }
 
-.login-card .ant-tabs-nav {
-  margin-bottom: 24px;
+.custom-tabs .ant-tabs-nav {
+  margin-bottom: 30px;
+}
+
+.custom-tabs .ant-tabs-nav::before {
+  border-bottom: none;
+}
+
+.custom-tabs .ant-tabs-tab {
+  font-size: 18px;
+  padding: 12px 0;
+  color: #777;
+  transition: all 0.3s ease;
+}
+
+.custom-tabs .ant-tabs-tab+.ant-tabs-tab {
+  margin-left: 40px;
+}
+
+.custom-tabs .ant-tabs-tab:hover {
+  color: #3a7bd5;
+}
+
+.custom-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #3a7bd5;
+  font-weight: 600;
+}
+
+.custom-tabs .ant-tabs-ink-bar {
+  background-color: #3a7bd5;
+  height: 3px;
+  border-radius: 3px;
 }
 
 .login-card .ant-form-item {
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .login-card .ant-input-affix-wrapper {
-  padding: 8px 11px;
+  padding: 12px 15px;
+  border-radius: 12px;
+  border: 1px solid #e8e8e8;
+  transition: all 0.3s ease;
+  background: #f9f9f9;
 }
 
-.login-card .ant-btn {
-  height: 40px;
+.login-card .ant-input-affix-wrapper:hover,
+.login-card .ant-input-affix-wrapper-focused {
+  border-color: #3a7bd5;
+  box-shadow: 0 0 0 2px rgba(58, 123, 213, 0.1);
+}
+
+.input-icon {
+  color: #bbb;
+  font-size: 18px;
+  margin-right: 8px;
+}
+
+.login-card .ant-input {
+  background: transparent;
   font-size: 16px;
 }
 
-.login-card .ant-tabs-tab {
+.login-button {
+  height: 48px;
   font-size: 16px;
-  padding: 12px 0;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #3a7bd5, #4F4DFF);
+  border: none;
+  box-shadow: 0 5px 15px rgba(58, 123, 213, 0.3);
+  transition: all 0.3s ease;
 }
 
-.login-card .ant-tabs-tab+.ant-tabs-tab {
-  margin-left: 32px;
+.login-button:hover {
+  background: linear-gradient(135deg, #4F4DFF, #3a7bd5);
+  box-shadow: 0 7px 20px rgba(58, 123, 213, 0.4);
+  transform: translateY(-2px);
+}
+
+.login-footer {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    max-width: 100%;
+  }
+
+  .login-card .ant-card-body {
+    padding: 24px 20px;
+  }
+
+  .custom-tabs .ant-tabs-tab {
+    font-size: 16px;
+  }
+
+  .custom-tabs .ant-tabs-tab+.ant-tabs-tab {
+    margin-left: 20px;
+  }
 }

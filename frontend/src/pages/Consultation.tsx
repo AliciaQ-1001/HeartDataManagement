@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Card, List, Avatar, Input, Button, Empty, Dropdown, Menu, message } from 'antd';
-import { UserOutlined, RobotOutlined, DownOutlined } from '@ant-design/icons';
+import { UserOutlined, RobotOutlined, DownOutlined, SendOutlined, MedicineBoxOutlined } from '@ant-design/icons';
 import './Consultation.css';
 
 interface Message {
@@ -8,6 +8,7 @@ interface Message {
   sender: string;
   content: string;
   time: string;
+  isUser?: boolean;
 }
 
 const Consultation: React.FC<{ consultType?: string; onConsultTypeChange?: (type: string) => void }> = ({ consultType = 'doctor', onConsultTypeChange }) => {
@@ -15,6 +16,7 @@ const Consultation: React.FC<{ consultType?: string; onConsultTypeChange?: (type
   const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // 初始化消息
@@ -51,7 +53,8 @@ const Consultation: React.FC<{ consultType?: string; onConsultTypeChange?: (type
       id: messages.length + 1,
       sender: '患者',
       content: inputValue,
-      time: new Date().toLocaleTimeString()
+      time: new Date().toLocaleTimeString(),
+      isUser: true
     };
     setMessages(prev => [...prev, userMessage]);
     setInputValue('');
@@ -73,7 +76,8 @@ const Consultation: React.FC<{ consultType?: string; onConsultTypeChange?: (type
           content: consultType === 'doctor'
             ? '我明白了，请详细描述一下您的症状。'
             : '根据您的描述，我建议您注意以下几点：\n1. 保持规律作息\n2. 适当运动\n3. 保持心情愉悦',
-          time: new Date().toLocaleTimeString()
+          time: new Date().toLocaleTimeString(),
+          isUser: false
         };
         setMessages(prev => [...prev, replyMessage]);
         setLoading(false);
@@ -104,25 +108,42 @@ const Consultation: React.FC<{ consultType?: string; onConsultTypeChange?: (type
           </Dropdown>
         }
       >
-        <List
-          itemLayout="horizontal"
-          dataSource={messages}
-          renderItem={item => (
-            <List.Item>
-              <List.Item.Meta
-                avatar={<Avatar icon={item.sender === 'ChatGPT' ? <RobotOutlined /> : <UserOutlined />} />}
-                title={<span>{item.sender} <span style={{ color: '#aaa', fontSize: 12 }}>{item.time}</span></span>}
-                description={item.content}
-              />
-            </List.Item>
+        <div className="ant-list" ref={listRef}>
+          {messages.length === 0 ? (
+            <Empty description="暂无对话" />
+          ) : (
+            messages.map(item => (
+              <div
+                key={item.id}
+                className={`ant-list-item ${item.isUser ? 'user-message' : ''}`}
+              >
+                <div className="message-header">
+                  <div className="message-sender">
+                    <Avatar
+                      className={`message-avatar ${item.sender === 'ChatGPT' || item.sender === '医生' ? 'ai-avatar' : ''}`}
+                      icon={
+                        item.sender === 'ChatGPT'
+                          ? <RobotOutlined />
+                          : item.sender === '医生'
+                            ? <MedicineBoxOutlined />
+                            : <UserOutlined />
+                      }
+                    />
+                    <span style={{ marginLeft: 10 }}>{item.sender}</span>
+                    <span className="message-time">{item.time}</span>
+                  </div>
+                </div>
+                <div className="message-content">{item.content}</div>
+              </div>
+            ))
           )}
-          locale={{ emptyText: <Empty description="暂无对话" /> }}
-        />
-        <div ref={messagesEndRef} />
+          <div ref={messagesEndRef} />
+        </div>
+
         <div className="consultation-input">
           <Input.TextArea
-            rows={2}
-            placeholder="请输入消息..."
+            rows={3}
+            placeholder={consultType === 'doctor' ? "请描述您的症状..." : "请输入您的问题..."}
             value={inputValue}
             onChange={e => setInputValue(e.target.value)}
             onPressEnter={e => {
@@ -134,9 +155,10 @@ const Consultation: React.FC<{ consultType?: string; onConsultTypeChange?: (type
           />
           <Button
             type="primary"
-            style={{ marginTop: 8 }}
+            className="send-button"
             onClick={handleSend}
             loading={loading}
+            icon={<SendOutlined />}
           >
             发送
           </Button>

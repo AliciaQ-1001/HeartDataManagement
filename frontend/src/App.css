@@ -1,14 +1,14 @@
 html,
 body,
 #root {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   margin: 0;
   padding: 0;
   font-size: 18px;
   font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
   background: #f6fbfd;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 body {
@@ -18,7 +18,7 @@ body {
 
 #root {
   min-height: 100vh;
-  width: 100vw;
+  width: 100%;
   padding: 0;
   text-align: initial;
   background: none;
@@ -65,12 +65,13 @@ body {
 
 .app-root {
   display: flex;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background: #f6fbfd;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow-x: hidden;
   padding: 0;
+  transition: all 0.3s ease;
 }
 
 .main-content {
@@ -79,7 +80,8 @@ body {
   flex-direction: column;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   margin: 0;
   padding: 0;
   background: #f6fbfd;
@@ -94,26 +96,43 @@ body {
   font-size: 18px;
 }
 
-/* 去除Antd卡片、表格等圆角和阴影 */
+/* 卡片样式统一，但保留响应式边距 */
 .ant-card,
 .ant-card-bordered,
 .ant-table,
 .ant-descriptions {
-  border-radius: 0 !important;
-  box-shadow: none !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+  margin-bottom: 16px;
 }
 
-/* 卡片内容区无多余间距 */
+/* 卡片内容区合理间距 */
 .card,
 .dashboard-card {
-  margin: 0 !important;
-  padding: 0 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
+  margin: 0 0 16px 0 !important;
+  padding: 16px !important;
+  border-radius: 16px !important;
 }
 
-/* 响应式字体 */
-@media (max-width: 900px) {
+/* 全局响应式设计 */
+@media screen and (max-width: 1200px) {
+
+  .app-root,
+  .main-content,
+  .dashboard-card,
+  .ant-card,
+  .ant-table,
+  .ant-descriptions {
+    font-size: 17px;
+  }
+
+  .card,
+  .dashboard-card {
+    padding: 14px !important;
+  }
+}
+
+@media screen and (max-width: 992px) {
 
   html,
   body,
@@ -128,5 +147,67 @@ body {
   .ant-table,
   .ant-descriptions {
     font-size: 16px;
+  }
+
+  .card,
+  .dashboard-card {
+    padding: 12px !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .app-root {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .main-content {
+    height: auto;
+    min-height: calc(100vh - 90px);
+    /* 减去侧边栏高度 */
+  }
+
+  html,
+  body,
+  #root {
+    font-size: 14px;
+    overflow-y: auto;
+  }
+
+  .app-root,
+  .main-content,
+  .dashboard-card,
+  .ant-card,
+  .ant-table,
+  .ant-descriptions {
+    font-size: 14px;
+  }
+
+  .card,
+  .dashboard-card {
+    padding: 10px !important;
+  }
+
+  .ant-card-body {
+    padding: 12px !important;
+  }
+}
+
+@media screen and (max-width: 576px) {
+
+  html,
+  body,
+  #root {
+    font-size: 14px;
+  }
+
+  .card,
+  .dashboard-card {
+    padding: 8px !important;
+  }
+
+  .ant-card-body {
+    padding: 10px !important;
   }
 }

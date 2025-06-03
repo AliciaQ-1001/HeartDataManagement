@@ -82,7 +82,7 @@ const Topbar: React.FC<{ onConsultTypeChange?: (type: string) => void }> = ({ on
   return (
     <div className="topbar">
       <div className="greeting">
-        您好！ <b>{userInfo?.userName || '用户'}</b>
+        您好！ <b>{userInfo?.userName || 'Alicia'}</b>
       </div>
       <div className="topbar-actions">
         <Input className="search-input" placeholder="搜索..." prefix={<SearchOutlined />} />

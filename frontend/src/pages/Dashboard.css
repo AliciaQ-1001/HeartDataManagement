@@ -1,7 +1,8 @@
 .dashboard-container {
   padding: 24px;
-  min-height: 100vh;
+  min-height: 100%;
   background: linear-gradient(135deg, #f0f7ff 0%, #e6f7ff 100%);
+  overflow-x: hidden;
 }
 
 .dashboard-grid-container {
@@ -96,6 +97,7 @@
   transition: all 0.3s ease;
   height: 100%;
   border: none;
+  overflow: hidden;
 }
 
 .dashboard-card:hover {
@@ -104,7 +106,7 @@
 }
 
 .card-title {
-  /* display: flex; */
+  display: flex;
   align-items: center;
   gap: 8px;
   font-size: 16px;
@@ -255,36 +257,42 @@
   border-radius: 8px;
 }
 
-/* 响应式布局 */
-@media (max-width: 768px) {
+/* 精细的响应式布局 */
+@media (max-width: 1200px) {
+  .dashboard-container {
+    padding: 20px;
+  }
+
+  .temperature-value {
+    font-size: 42px;
+  }
+
+  .formula-value {
+    font-size: 22px;
+  }
+
+  .blood-formula-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 992px) {
   .dashboard-container {
     padding: 16px;
   }
 
-  .dashboard-grid-container {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 12px;
-  }
-
-  .dashboard-card {
-    padding: 12px;
-  }
-
-  .blood-formula-row {
-    grid-template-columns: 1fr;
-  }
-
-  .temp-value {
+  .temperature-value {
     font-size: 36px;
   }
 
-  .temp-range {
-    font-size: 14px;
+  .temperature-status {
+    font-size: 16px;
   }
 
   .blood-formula-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
   }
 
   .formula-value {
@@ -292,21 +300,64 @@
   }
 }
 
-@media (min-width: 769px) and (max-width: 1200px) {
-  .dashboard-grid-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 12px;
+  }
+
+  .temperature-value {
+    font-size: 32px;
+  }
+
+  .temperature-status {
+    font-size: 14px;
+  }
+
+  .formula-value {
+    font-size: 18px;
   }
 
   .blood-formula-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .blood-formula-item {
+    padding: 12px;
   }
 }
 
-@media (min-width: 1201px) {
-  .dashboard-grid-container {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+@media (max-width: 576px) {
+  .dashboard-container {
+    padding: 10px;
+  }
+
+  .temperature-value {
+    font-size: 28px;
+  }
+
+  .blood-formula-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .formula-value {
+    font-size: 16px;
+  }
+
+  .blood-formula-item {
+    padding: 10px;
+  }
+
+  .hematocrit-value .value {
+    font-size: 20px;
+  }
+
+  .card-title {
+    font-size: 14px;
+  }
+
+  .card-title .anticon {
+    font-size: 16px;
   }
 }
 

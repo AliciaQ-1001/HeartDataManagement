@@ -38,7 +38,6 @@ const Sidebar: React.FC = () => {
         <Menu.Item key="respiratory" icon={<CloudOutlined />}>呼吸</Menu.Item>
         <Menu.Item key="sleep" icon={<CloudOutlined />}>睡眠</Menu.Item>
         <Menu.Item key="consultation" icon={<MessageOutlined />}>咨询</Menu.Item>
-        {/* <Menu.Item key="user" icon={<UserOutlined />}>个人信息</Menu.Item> */}
       </Menu>
     </div>
   );

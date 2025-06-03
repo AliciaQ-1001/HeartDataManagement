@@ -1,33 +1,482 @@
 .userinfo-container {
+  padding: 24px;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  gap: 24px;
   width: 100%;
-  padding-top: 32px;
+  box-sizing: border-box;
+  background-color: #f5f8fa;
+  position: relative;
 }
 
 .userinfo-card {
-  width: 400px;
-  min-width: 280px;
-  border-radius: 20px !important;
-  box-shadow: 0 2px 8px #eaf6fb44;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: none !important;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
 }
 
-.userinfo-header {
+.userinfo-card:hover {
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+}
+
+.userinfo-title {
   display: flex;
   align-items: center;
-  gap: 18px;
-  margin-bottom: 18px;
+  justify-content: space-between;
+  padding: 8px 0;
 }
 
-.userinfo-name {
-  font-size: 22px;
+.userinfo-title h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  color: #1a1a1a;
+  background: linear-gradient(90deg, #1890ff, #52c1fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.edit-button {
+  background: linear-gradient(135deg, #1890ff 0%, #52c1fa 100%);
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(24, 144, 255, 0.15);
+  transition: all 0.3s;
+}
+
+.edit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(24, 144, 255, 0.25);
+  background: linear-gradient(135deg, #52c1fa 0%, #1890ff 100%);
+}
+
+.userinfo-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 0 16px;
+}
+
+.user-avatar {
+  background: linear-gradient(135deg, #1890ff 0%, #52c1fa 100%);
+  color: white;
+  font-size: 32px;
   font-weight: bold;
+  box-shadow: 0 8px 16px rgba(24, 144, 255, 0.25);
+  border: 3px solid white;
 }
 
-@media (max-width: 600px) {
-  .userinfo-card {
-    width: 100%;
-    min-width: 0;
+.user-name {
+  margin-top: 16px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.user-id {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #888;
+}
+
+/* 信息展示部分 */
+.info-tabs {
+  width: 100%;
+}
+
+.info-section {
+  padding: 16px 0;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s;
+  height: 100%;
+}
+
+.info-item:hover {
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+.info-icon {
+  font-size: 20px;
+  color: #1890ff;
+  margin-right: 16px;
+  padding: 10px;
+  background: rgba(24, 144, 255, 0.1);
+  border-radius: 10px;
+}
+
+.info-content {
+  flex: 1;
+}
+
+.info-label {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 6px;
+}
+
+.info-value {
+  font-size: 16px;
+  color: #1a1a1a;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+/* 医疗信息块 */
+.medical-info-block {
+  margin-bottom: 24px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s;
+}
+
+.medical-info-block:hover {
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.medical-info-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.medical-info-title .anticon {
+  color: #1890ff;
+}
+
+.medical-info-content {
+  min-height: 40px;
+}
+
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-container .ant-tag {
+  margin-right: 0;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.empty-info {
+  color: #999;
+  font-style: italic;
+}
+
+/* 编辑模态框 */
+.edit-modal .ant-modal-content {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.edit-modal .ant-modal-header {
+  background: linear-gradient(90deg, #f0f7ff 0%, #f6fbfd 100%);
+}
+
+.edit-modal .ant-modal-title {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.userinfo-form .ant-form-item-label {
+  font-weight: 500;
+}
+
+.userinfo-form .ant-form-item-extra {
+  font-size: 12px;
+  color: #888;
+}
+
+.userinfo-form .ant-input,
+.userinfo-form .ant-input-affix-wrapper,
+.userinfo-form .ant-select-selector {
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: all 0.3s;
+}
+
+.userinfo-form .ant-input:focus,
+.userinfo-form .ant-input-affix-wrapper:focus,
+.userinfo-form .ant-input:hover,
+.userinfo-form .ant-input-affix-wrapper:hover,
+.userinfo-form .ant-select-selector:hover {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.1);
+}
+
+.userinfo-form .ant-input-prefix {
+  color: #1890ff;
+  margin-right: 8px;
+}
+
+/* 响应式布局 */
+@media screen and (max-width: 1200px) {
+  .userinfo-container {
+    padding: 20px;
+    gap: 20px;
   }
+
+  .userinfo-title h2 {
+    font-size: 18px;
+  }
+
+  .user-avatar {
+    width: 70px !important;
+    height: 70px !important;
+    font-size: 28px;
+  }
+
+  .user-name {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .userinfo-container {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .userinfo-title {
+    margin-bottom: 0;
+  }
+
+  .userinfo-title h2 {
+    font-size: 17px;
+  }
+
+  .user-avatar {
+    width: 65px !important;
+    height: 65px !important;
+    font-size: 26px;
+  }
+
+  .user-name {
+    font-size: 18px;
+  }
+
+  .info-item {
+    padding: 12px;
+  }
+
+  .info-icon {
+    font-size: 18px;
+    padding: 8px;
+  }
+
+  .info-value {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .userinfo-container {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .userinfo-title h2 {
+    font-size: 16px;
+  }
+
+  .user-avatar {
+    width: 60px !important;
+    height: 60px !important;
+    font-size: 24px;
+  }
+
+  .user-name {
+    font-size: 17px;
+    margin-top: 12px;
+  }
+
+  .user-id {
+    font-size: 12px;
+  }
+
+  .info-item {
+    padding: 10px;
+  }
+
+  .info-icon {
+    font-size: 16px;
+    padding: 7px;
+    margin-right: 12px;
+  }
+
+  .info-label {
+    font-size: 13px;
+  }
+
+  .info-value {
+    font-size: 14px;
+  }
+
+  .medical-info-title {
+    font-size: 15px;
+  }
+
+  .tag-container .ant-tag {
+    padding: 3px 10px;
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .userinfo-container {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .userinfo-card {
+    border-radius: 14px !important;
+  }
+
+  .userinfo-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .edit-button {
+    width: 100%;
+  }
+
+  .user-avatar {
+    width: 55px !important;
+    height: 55px !important;
+    font-size: 22px;
+  }
+
+  .user-name {
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
+  .user-id {
+    font-size: 11px;
+  }
+
+  .info-item {
+    padding: 8px;
+  }
+
+  .info-icon {
+    font-size: 14px;
+    padding: 6px;
+    margin-right: 10px;
+  }
+
+  .info-label {
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+
+  .info-value {
+    font-size: 13px;
+  }
+
+  .medical-info-block {
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+
+  .medical-info-title {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .tag-container .ant-tag {
+    padding: 2px 8px;
+    font-size: 12px;
+  }
+}
+
+/* 成功提示动画样式 */
+.success-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.success-overlay .ant-result {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  max-width: 90%;
+  transform: scale(0.9);
+  animation: scaleUp 0.3s ease-out forwards;
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.9);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+.success-overlay .ant-result-icon {
+  font-size: 72px;
+}
+
+.success-overlay .ant-result-title {
+  color: #52c41a;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.success-overlay .ant-result-subtitle {
+  font-size: 16px;
+  color: #888;
 }

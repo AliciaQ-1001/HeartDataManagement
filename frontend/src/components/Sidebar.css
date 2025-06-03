@@ -8,7 +8,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: box-shadow 0.2s;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 100;
 }
 
 .logo {
@@ -20,6 +22,8 @@
   background: linear-gradient(90deg, #1890ff 60%, #52c1fa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-align: center;
+  transition: all 0.3s ease;
 }
 
 .ant-menu {
@@ -46,4 +50,62 @@
 .ant-menu-item:hover {
   background: #f0f9ff !important;
   color: #1890ff !important;
+}
+
+/* 响应式设计 */
+@media screen and (max-width: 1200px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .ant-menu-item {
+    font-size: 18px;
+    padding-left: 50px !important;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .sidebar {
+    width: 180px;
+  }
+
+  .logo {
+    font-size: 22px;
+    margin-bottom: 30px;
+  }
+
+  .ant-menu-item {
+    font-size: 16px;
+    padding-left: 40px !important;
+    margin: 8px 14px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    min-height: auto;
+    border-radius: 0;
+    padding: 20px 0;
+  }
+
+  .logo {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .ant-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .ant-menu-item {
+    padding: 0 20px !important;
+    margin: 5px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    text-align: center;
+  }
 }
