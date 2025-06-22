@@ -18,18 +18,18 @@
 
 ## 启动方式
 
-### 1. 启动后端
+### 1. 启动后端（暂不需要）
 ```bash
 cd backend
 npm install
 npm run dev
 ```
 
-### 2. 启动前端(不需要自动启动)
+### 2. 启动前端
 ```bash
 cd frontend
 npm install
-npm start
+npm run dev
 ```
 
 前端默认端口：3000  

@@ -129,7 +129,7 @@ interface DashboardData {
 ```typescript
 interface Message {
   id: number;        // 消息ID
-  sender: string;    // 发送者（医生/患者/ChatGPT）
+  sender: string;    // 发送者（医生/患者/智能助手）
   content: string;   // 消息内容
   time: string;      // 发送时间
 }
@@ -141,7 +141,7 @@ interface Message {
 
 #### 问诊模式
 - 医生问诊
-- ChatGPT健康助手问诊
+- 智能助手健康助手问诊
 
 ## 7. 技术建议
 

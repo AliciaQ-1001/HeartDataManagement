@@ -13,6 +13,8 @@ interface HeartData {
   heartPtt: number;
   heartTimestamp: string;
   userId: number;
+  heartSystolic: number; // 收缩压
+  heartDiastolic: number; // 舒张压
 }
 
 const HeartData: React.FC = () => {
@@ -34,6 +36,8 @@ const HeartData: React.FC = () => {
         heartSv: 50 + Math.round(Math.random() * 30), // 50-80
         heartCo: 4 + Math.round(Math.random() * 40) / 10, // 4.0-8.0
         heartPtt: 100 + Math.round(Math.random() * 80), // 100-180
+        heartSystolic: 110 + Math.round(Math.random() * 25), // 110-135
+        heartDiastolic: 65 + Math.round(Math.random() * 20), // 65-85
         heartTimestamp: d.toISOString(),
       };
     });
@@ -74,6 +78,8 @@ const HeartData: React.FC = () => {
   const sv = heartData.map(d => d.heartSv);
   const co = heartData.map(d => d.heartCo);
   const ptt = heartData.map(d => d.heartPtt);
+  const systolic = heartData.map(d => d.heartSystolic || 120);
+  const diastolic = heartData.map(d => d.heartDiastolic || 80);
 
   const mainColor = '#52c1fa';
   const areaColor = 'rgba(82,193,250,0.15)';
@@ -86,6 +92,45 @@ const HeartData: React.FC = () => {
           yAxis: { type: 'value', min: 40, max: 120 },
           series: [{ data: heartRate, type: 'line', smooth: true, areaStyle: { color: areaColor }, lineStyle: { color: mainColor, width: 3 }, symbol: 'circle', itemStyle: { color: mainColor } }],
           tooltip: { trigger: 'axis' },
+        }} style={{ height: 220 }} />
+      </Card>
+      <Card title="血压监测" className="heartdata-card" loading={loading}>
+        <ReactECharts option={{
+          tooltip: { trigger: 'axis' },
+          legend: { data: ['收缩压', '舒张压'], top: 0 },
+          xAxis: { type: 'category', data: hours },
+          yAxis: { type: 'value', min: 40, max: 160 },
+          series: [
+            {
+              name: '收缩压',
+              data: systolic,
+              type: 'line',
+              smooth: true,
+              symbol: 'circle',
+              symbolSize: 6,
+              lineStyle: { width: 3, color: '#ff4d4f' },
+              itemStyle: { color: '#ff4d4f' }
+            },
+            {
+              name: '舒张压',
+              data: diastolic,
+              type: 'line',
+              smooth: true,
+              symbol: 'circle',
+              symbolSize: 6,
+              lineStyle: { width: 3, color: '#1890ff' },
+              itemStyle: { color: '#1890ff' }
+            }
+          ],
+          markArea: {
+            itemStyle: { color: 'rgba(0, 255, 0, 0.05)' },
+            data: [
+              [
+                { name: '正常范围', yAxis: 60 },
+                { yAxis: 90 }
+              ]
+            ]
+          }
         }} style={{ height: 220 }} />
       </Card>
       <Card title="心率变异性 (HRV)" className="heartdata-card" loading={loading}>

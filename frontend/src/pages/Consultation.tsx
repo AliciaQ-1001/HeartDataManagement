@@ -26,7 +26,7 @@ const Consultation: React.FC<{ consultType?: string; onConsultTypeChange?: (type
       ]);
     } else {
       setMessages([
-        { id: 1, sender: 'ChatGPT', content: '您好，我是智能健康助手，有什么可以帮您？', time: new Date().toLocaleTimeString() }
+        { id: 1, sender: '智能助手', content: '您好，我是智能健康助手，有什么可以帮您？', time: new Date().toLocaleTimeString() }
       ]);
     }
   }, [consultType]);
@@ -72,7 +72,7 @@ const Consultation: React.FC<{ consultType?: string; onConsultTypeChange?: (type
       setTimeout(() => {
         const replyMessage: Message = {
           id: messages.length + 2,
-          sender: consultType === 'doctor' ? '医生' : 'ChatGPT',
+          sender: consultType === 'doctor' ? '医生' : '智能助手',
           content: consultType === 'doctor'
             ? '我明白了，请详细描述一下您的症状。'
             : '根据您的描述，我建议您注意以下几点：\n1. 保持规律作息\n2. 适当运动\n3. 保持心情愉悦',
@@ -91,19 +91,19 @@ const Consultation: React.FC<{ consultType?: string; onConsultTypeChange?: (type
   const menu = (
     <Menu onClick={({ key }) => onConsultTypeChange?.(key)} selectedKeys={[consultType]}>
       <Menu.Item key="doctor">与医生咨询</Menu.Item>
-      <Menu.Item key="chatgpt">与ChatGPT咨询</Menu.Item>
+      <Menu.Item key="智能助手">与智能助手咨询</Menu.Item>
     </Menu>
   );
 
   return (
     <div className="consultation-container">
       <Card
-        title={consultType === 'doctor' ? '医生问诊' : 'ChatGPT健康助手'}
+        title={consultType === 'doctor' ? '医生问诊' : '智能助手健康助手'}
         className="consultation-card"
         extra={
           <Dropdown overlay={menu} placement="bottomRight">
             <Button className="consult-type-btn">
-              {consultType === 'doctor' ? '与医生咨询' : '与ChatGPT咨询'} <DownOutlined />
+              {consultType === 'doctor' ? '与医生咨询' : '与智能助手咨询'} <DownOutlined />
             </Button>
           </Dropdown>
         }
@@ -120,9 +120,9 @@ const Consultation: React.FC<{ consultType?: string; onConsultTypeChange?: (type
                 <div className="message-header">
                   <div className="message-sender">
                     <Avatar
-                      className={`message-avatar ${item.sender === 'ChatGPT' || item.sender === '医生' ? 'ai-avatar' : ''}`}
+                      className={`message-avatar ${item.sender === '智能助手' || item.sender === '医生' ? 'ai-avatar' : ''}`}
                       icon={
-                        item.sender === 'ChatGPT'
+                        item.sender === '智能助手'
                           ? <RobotOutlined />
                           : item.sender === '医生'
                             ? <MedicineBoxOutlined />

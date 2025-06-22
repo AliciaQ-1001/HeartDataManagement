@@ -85,7 +85,7 @@ const Topbar: React.FC<{ onConsultTypeChange?: (type: string) => void }> = ({ on
         您好！ <b>{userInfo?.userName || 'Alicia'}</b>
       </div>
       <div className="topbar-actions">
-        <Input className="search-input" placeholder="搜索..." prefix={<SearchOutlined />} />
+        {/* <Input className="search-input" placeholder="搜索..." prefix={<SearchOutlined />} /> */}
         <Popover
           placement="bottom"
           content={

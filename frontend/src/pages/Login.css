@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #3a7bd5 0%, #4F4DFF 50%, #3C51B3 100%);
+  background: linear-gradient(135deg, #3a7bd5 0%, #c1c0e9 50%, #96a7f3 100%);
   background-size: 200% 200%;
   animation: gradientBG 15s ease infinite;
 }
@@ -97,6 +97,31 @@
   padding: 30px 35px;
 }
 
+/* 错误提示样式 */
+.form-alert {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ant-form-item-has-error .ant-input-affix-wrapper {
+  background-color: #fff1f0;
+  border-color: #ff4d4f;
+  box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.1);
+}
+
 .custom-tabs .ant-tabs-nav {
   margin-bottom: 30px;
 }
@@ -133,6 +158,13 @@
 
 .login-card .ant-form-item {
   margin-bottom: 28px;
+}
+
+.login-card .ant-form-item-explain-error {
+  font-size: 14px;
+  margin-top: 4px;
+  color: #ff4d4f;
+  animation: fadeIn 0.3s ease;
 }
 
 .login-card .ant-input-affix-wrapper {

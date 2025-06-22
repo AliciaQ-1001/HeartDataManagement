@@ -257,6 +257,51 @@
   border-radius: 8px;
 }
 
+/* 参考范围卡片样式 */
+.vital-signs-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+}
+
+.vital-signs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  padding: 10px;
+}
+
+.vital-sign-item {
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.vital-sign-item:hover {
+  background: #f0f7ff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.vital-sign-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #1a1a1a;
+}
+
+.vital-sign-range {
+  font-size: 14px;
+  color: #1890ff;
+  font-weight: 500;
+}
+
+.formula-status {
+  font-size: 12px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
 /* 精细的响应式布局 */
 @media (max-width: 1200px) {
   .dashboard-container {
@@ -274,6 +319,11 @@
   .blood-formula-grid {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 16px;
+  }
+
+  .vital-signs-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
   }
 }
 
@@ -297,6 +347,11 @@
 
   .formula-value {
     font-size: 20px;
+  }
+
+  .vital-signs-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 }
 
@@ -324,6 +379,14 @@
 
   .blood-formula-item {
     padding: 12px;
+  }
+
+  .vital-sign-title {
+    font-size: 14px;
+  }
+
+  .vital-sign-range {
+    font-size: 12px;
   }
 }
 
@@ -358,6 +421,10 @@
 
   .card-title .anticon {
     font-size: 16px;
+  }
+
+  .vital-signs-grid {
+    grid-template-columns: 1fr;
   }
 }
 

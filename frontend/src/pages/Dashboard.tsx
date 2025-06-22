@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Calendar, Progress, message, Row, Col, Statistic } from 'antd';
-import { FireOutlined, HeartOutlined, CalendarOutlined } from '@ant-design/icons';
+import { Card, Calendar, Progress, message, Row, Col, Statistic, Tooltip } from 'antd';
+import { FireOutlined, HeartOutlined, CalendarOutlined, HeartFilled } from '@ant-design/icons';
 import { fetchDashboardData } from '../api/utils';
 import './Dashboard.css';
 
@@ -16,6 +16,24 @@ interface DashboardData {
   cellLymphocytes: number;
   cellMonocytes: number;
   cellBasophils: number;
+  cellNeutrophilsMin?: number;
+  cellNeutrophilsMax?: number;
+  cellLymphocytesMin?: number;
+  cellLymphocytesMax?: number;
+  cellMonocytesMin?: number;
+  cellMonocytesMax?: number;
+  cellBasophilsMin?: number;
+  cellBasophilsMax?: number;
+  cellHematocritMin?: number;
+  cellHematocritMax?: number;
+  heartRateMin?: number;
+  heartRateMax?: number;
+  bpSystolicMin?: number;
+  bpSystolicMax?: number;
+  bpDiastolicMin?: number;
+  bpDiastolicMax?: number;
+  oxygenSaturationMin?: number;
+  oxygenSaturationMax?: number;
 }
 
 const Dashboard: React.FC = () => {
@@ -59,7 +77,25 @@ const Dashboard: React.FC = () => {
       cellNeutrophils: 60,
       cellLymphocytes: 30,
       cellMonocytes: 8,
-      cellBasophils: 2
+      cellBasophils: 2,
+      cellNeutrophilsMin: 40,
+      cellNeutrophilsMax: 75,
+      cellLymphocytesMin: 20,
+      cellLymphocytesMax: 40,
+      cellMonocytesMin: 2,
+      cellMonocytesMax: 10,
+      cellBasophilsMin: 0,
+      cellBasophilsMax: 2,
+      cellHematocritMin: 36,
+      cellHematocritMax: 52,
+      heartRateMin: 60,
+      heartRateMax: 100,
+      bpSystolicMin: 90,
+      bpSystolicMax: 120,
+      bpDiastolicMin: 60,
+      bpDiastolicMax: 80,
+      oxygenSaturationMin: 95,
+      oxygenSaturationMax: 100
     };
 
 
@@ -69,7 +105,44 @@ const Dashboard: React.FC = () => {
     return { status: '正常', color: '#52c41a' };
   };
 
+  const getValueStatus = (value: number, min: number, max: number) => {
+    if (value < min) return { status: '偏低', color: '#1890ff' };
+    if (value > max) return { status: '偏高', color: '#ff4d4f' };
+    return { status: '正常', color: '#52c41a' };
+  };
+
   const tempStatus = getTemperatureStatus(latestData.cellValue);
+
+  // 计算各指标状态
+  const neutrophilsStatus = getValueStatus(
+    latestData.cellNeutrophils,
+    latestData.cellNeutrophilsMin || 40,
+    latestData.cellNeutrophilsMax || 75
+  );
+
+  const lymphocytesStatus = getValueStatus(
+    latestData.cellLymphocytes,
+    latestData.cellLymphocytesMin || 20,
+    latestData.cellLymphocytesMax || 40
+  );
+
+  const monocytesStatus = getValueStatus(
+    latestData.cellMonocytes,
+    latestData.cellMonocytesMin || 2,
+    latestData.cellMonocytesMax || 10
+  );
+
+  const basophilsStatus = getValueStatus(
+    latestData.cellBasophils,
+    latestData.cellBasophilsMin || 0,
+    latestData.cellBasophilsMax || 2
+  );
+
+  const hematocritStatus = getValueStatus(
+    latestData.cellHematocrit,
+    latestData.cellHematocritMin || 36,
+    latestData.cellHematocritMax || 52
+  );
 
   return (
     <div className="dashboard-container">
@@ -112,20 +185,23 @@ const Dashboard: React.FC = () => {
                 }
               >
                 <div className="blood-content">
-                  <Progress
-                    type="circle"
-                    percent={latestData.cellHematocrit}
-                    format={() => (
-                      <div className="hematocrit-value">
-                        <div className="value">{latestData.cellHematocrit}%</div>
-                        <div className="label">血红比值</div>
-                      </div>
-                    )}
-                    strokeColor={{
-                      '0%': '#108ee9',
-                      '100%': '#87d068',
-                    }}
-                  />
+                  <Tooltip title={`正常范围: ${latestData.cellHematocritMin || 36}% - ${latestData.cellHematocritMax || 52}%`}>
+                    <Progress
+                      type="circle"
+                      percent={latestData.cellHematocrit}
+                      format={() => (
+                        <div className="hematocrit-value">
+                          <div className="value" style={{ color: hematocritStatus.color }}>{latestData.cellHematocrit}%</div>
+                          <div className="label">血红比值</div>
+                          <div className="status" style={{ color: hematocritStatus.color, fontSize: '12px' }}>{hematocritStatus.status}</div>
+                        </div>
+                      )}
+                      strokeColor={{
+                        '0%': '#108ee9',
+                        '100%': '#87d068',
+                      }}
+                    />
+                  </Tooltip>
                 </div>
               </Card>
             </Col>
@@ -136,21 +212,69 @@ const Dashboard: React.FC = () => {
                 title="血液组成分析"
               >
                 <div className="blood-formula-grid">
-                  <div className="blood-formula-item neutrophils">
-                    <div className="formula-value">{latestData.cellNeutrophils}%</div>
-                    <div className="formula-label">中性粒细胞</div>
+                  <Tooltip title={`正常范围: ${latestData.cellNeutrophilsMin || 40}% - ${latestData.cellNeutrophilsMax || 75}%`}>
+                    <div className="blood-formula-item neutrophils">
+                      <div className="formula-value" style={{ color: neutrophilsStatus.color }}>{latestData.cellNeutrophils}%</div>
+                      <div className="formula-label">中性粒细胞</div>
+                      <div className="formula-status" style={{ color: neutrophilsStatus.color }}>{neutrophilsStatus.status}</div>
+                    </div>
+                  </Tooltip>
+
+                  <Tooltip title={`正常范围: ${latestData.cellLymphocytesMin || 20}% - ${latestData.cellLymphocytesMax || 40}%`}>
+                    <div className="blood-formula-item lymphocytes">
+                      <div className="formula-value" style={{ color: lymphocytesStatus.color }}>{latestData.cellLymphocytes}%</div>
+                      <div className="formula-label">淋巴细胞</div>
+                      <div className="formula-status" style={{ color: lymphocytesStatus.color }}>{lymphocytesStatus.status}</div>
+                    </div>
+                  </Tooltip>
+
+                  <Tooltip title={`正常范围: ${latestData.cellMonocytesMin || 2}% - ${latestData.cellMonocytesMax || 10}%`}>
+                    <div className="blood-formula-item monocytes">
+                      <div className="formula-value" style={{ color: monocytesStatus.color }}>{latestData.cellMonocytes}%</div>
+                      <div className="formula-label">单核细胞</div>
+                      <div className="formula-status" style={{ color: monocytesStatus.color }}>{monocytesStatus.status}</div>
+                    </div>
+                  </Tooltip>
+
+                  <Tooltip title={`正常范围: ${latestData.cellBasophilsMin || 0}% - ${latestData.cellBasophilsMax || 2}%`}>
+                    <div className="blood-formula-item basophils">
+                      <div className="formula-value" style={{ color: basophilsStatus.color }}>{latestData.cellBasophils}%</div>
+                      <div className="formula-label">嗜碱性粒细胞</div>
+                      <div className="formula-status" style={{ color: basophilsStatus.color }}>{basophilsStatus.status}</div>
+                    </div>
+                  </Tooltip>
+                </div>
+              </Card>
+            </Col>
+            <Col xs={24}>
+              <Card
+                className="dashboard-card vital-signs-card"
+                loading={loading}
+                title={
+                  <div className="card-title">
+                    <HeartFilled /> 生命体征参考范围
                   </div>
-                  <div className="blood-formula-item lymphocytes">
-                    <div className="formula-value">{latestData.cellLymphocytes}%</div>
-                    <div className="formula-label">淋巴细胞</div>
+                }
+              >
+                <div className="vital-signs-grid">
+                  <div className="vital-sign-item">
+                    <div className="vital-sign-title">心率</div>
+                    <div className="vital-sign-range">{latestData.heartRateMin || 60} - {latestData.heartRateMax || 100} 次/分钟</div>
                   </div>
-                  <div className="blood-formula-item monocytes">
-                    <div className="formula-value">{latestData.cellMonocytes}%</div>
-                    <div className="formula-label">单核细胞</div>
+
+                  <div className="vital-sign-item">
+                    <div className="vital-sign-title">收缩压</div>
+                    <div className="vital-sign-range">{latestData.bpSystolicMin || 90} - {latestData.bpSystolicMax || 120} mmHg</div>
                   </div>
-                  <div className="blood-formula-item basophils">
-                    <div className="formula-value">{latestData.cellBasophils}%</div>
-                    <div className="formula-label">嗜碱性粒细胞</div>
+
+                  <div className="vital-sign-item">
+                    <div className="vital-sign-title">舒张压</div>
+                    <div className="vital-sign-range">{latestData.bpDiastolicMin || 60} - {latestData.bpDiastolicMax || 80} mmHg</div>
+                  </div>
+
+                  <div className="vital-sign-item">
+                    <div className="vital-sign-title">血氧饱和度</div>
+                    <div className="vital-sign-range">{latestData.oxygenSaturationMin || 95} - {latestData.oxygenSaturationMax || 100}%</div>
                   </div>
                 </div>
               </Card>
